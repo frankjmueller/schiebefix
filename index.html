@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#193f35"><title>Schiebefix · Fotopuzzle</title>
+<style>
+*{box-sizing:border-box}html{font-size:clamp(16px,1.08vw,38px)}body{margin:0;background:#f4efe2;color:#213e32;font-family:"Trebuchet MS",system-ui,sans-serif}button,select{font:inherit;color:inherit;cursor:pointer}button:focus-visible,select:focus-visible{outline:3px solid #ce631d;outline-offset:3px}header{border-bottom:1px solid #b8bbab}nav,main,footer{max-width:82rem;margin:auto;padding-inline:clamp(1rem,5vw,5rem)}nav{height:4.4rem;display:flex;align-items:center;justify-content:space-between}.brand{display:flex;gap:.65rem;align-items:center;font-weight:800;font-size:1.3rem;letter-spacing:-.06em}.logo{display:grid;grid-template-columns:repeat(2,.47rem);gap:.13rem;transform:rotate(-8deg)}.logo i{height:.47rem;background:#224d3b;border-radius:2px}.logo i:last-child{background:#d77844}.plain{border:0;background:transparent;padding:.7rem}.plain b{border:1px solid;border-radius:100%;display:inline-grid;place-items:center;width:1.18rem;height:1.18rem;margin-right:.35rem}main{padding-block:2.4rem}.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(18rem,.83fr);gap:clamp(2rem,6vw,7rem);align-items:center}.cabinet{position:relative;background:linear-gradient(125deg,#3c6952,#254e40 65%,#224637);padding:2.4rem 1.7rem 1.4rem;border:2px solid #203b2e;border-radius:1.8rem;box-shadow:inset 0 2px 2px #98aa83,inset 0 -5px 2px #173b2d,0 .9rem 1.6rem -.8rem #4a443b88}.screw{position:absolute;width:.44rem;height:.44rem;border-radius:50%;background:linear-gradient(145deg,#fae0a7,#a98450);box-shadow:0 1px 2px #173528}.screw:after{content:"";position:absolute;inset:45% 15%;background:#685837;transform:rotate(-35deg)}.tl,.bl{left:.85rem}.tr,.br{right:.85rem}.tl,.tr{top:.86rem}.bl,.br{bottom:.86rem}.board{position:relative;aspect-ratio:1;background:repeating-linear-gradient(120deg,transparent 0 4px,#ffffff05 4px 5px),#17392e;border:.34rem solid #18392d;border-radius:.65rem;box-shadow:0 1px 1px #849e78,inset 0 3px 9px #091d16;touch-action:none}.tile{position:absolute;left:0;top:0;width:calc(100% / var(--n));height:calc(100% / var(--n));background:none;border:0;padding:.14rem;transition:transform .16s ease-out;touch-action:none;user-select:none;-webkit-tap-highlight-color:transparent}.tile span{display:grid;place-items:center;width:100%;height:100%;border-radius:.47rem;background:linear-gradient(130deg,#faf0d7,#e9ddbc);color:#284635;font-family:Georgia,serif;font-weight:bold;font-size:calc(var(--digit) / var(--n));font-variant-numeric:lining-nums;letter-spacing:-.075em;text-indent:-.075em;text-shadow:0 1px #fff;box-shadow:inset 1px 2px 1px #fff9e9,inset -1px -.25rem 1px #bbac88,0 2px 2px #0d251b}.tile[data-movable=true]:hover span{background:#fff3d1}.plate{display:block;width:max-content;margin:.85rem auto 0;padding:.22rem 1.3rem;border-radius:.2rem;background:linear-gradient(110deg,#d8bd7e,#eee0ae,#cbb27a);color:#364435;font:bold italic 1rem Georgia;letter-spacing:.04em;box-shadow:0 2px 2px #163429}.cabinet{--digit:clamp(12rem,19vw,38rem)}.eyebrow,label,.stat small{display:block;font:bold .67rem/1.5 "Courier New",monospace;letter-spacing:.13em;text-transform:uppercase}.eyebrow{color:#8b4b2b}h1{font:bold clamp(3.6rem,6.3vw,6.2rem)/.98 Georgia,serif;letter-spacing:-.085em;margin:.6rem 0 1rem}.intro{font-size:1.04rem;line-height:1.55;max-width:26em;margin:0;color:#49594a}.stats{display:flex;gap:2.8rem;padding:1.35rem 0;margin:1.5rem 0;border-block:1px solid #bdbead}.stat strong{display:block;font:normal 2.2rem Georgia;font-variant-numeric:tabular-nums}.stat small,label{color:#546552}.sizes{display:flex;border:1px solid #aaaf9e;border-radius:.55rem;padding:.22rem;gap:.25rem;margin:.45rem 0 1rem}.sizes button{flex:1;border:0;border-radius:.35rem;background:transparent;padding:.65rem .2rem;font-weight:bold}.sizes [aria-pressed=true]{background:#28503d;color:#fff5de}.action{width:100%;border:1px solid #a34f29;border-radius:.5rem;background:#bd5933;color:white;padding:.88rem;font-weight:bold;box-shadow:inset 0 1px #ffffff44,0 2px 0 #924425}.undo{display:block;margin:.5rem auto 0}.undo:disabled{opacity:.48;cursor:default}footer{padding-block:1rem;border-top:1px solid #c4c5b6;font-size:.82rem;color:#52634e}dialog{width:min(24rem,92vw);border:1px solid #7c8d77;border-radius:1rem;background:#faf4e6;color:#213e32;padding:1.6rem}dialog::backdrop{background:#0c211bc4}dialog h2{font: bold 2rem Georgia;margin:0}dialog p{line-height:1.6}.sr{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}
+@media(min-width:761px){.cabinet{width:min(100%,75vh);justify-self:center}}
+@media(max-width:760px){main{padding-block:1.25rem}.layout{grid-template-columns:1fr;gap:1rem}.panel{display:contents}.title{grid-row:1}.cabinet{grid-row:2;width:min(100%,31rem);justify-self:center;padding:1.5rem .95rem .85rem;--digit:clamp(12rem,52vw,20rem)}.plate{margin-top:.55rem}.stats{margin:.1rem 0 1rem;padding:.75rem 0;justify-content:space-around}.stat strong{font-size:1.65rem}nav{height:3.4rem}h1{font-size:3.35rem;margin:.22rem 0 .4rem}.intro{font-size:.93rem}.tl,.tr{top:.6rem}.bl,.br{bottom:.6rem}}
+@media(prefers-reduced-motion:reduce){.tile{transition:none}}
+
+.board{aspect-ratio:var(--ratio,4/3)}
+.tile{padding:0}
+.tile span,.tile[data-movable=true]:hover span{position:relative;display:block;background:#17392e;border-radius:2px;overflow:hidden}
+.tile canvas{display:block;width:100%;height:100%;pointer-events:none}
+.tile span::after{content:"";position:absolute;inset:0;border:1px solid #fff8;pointer-events:none}
+.tile em{position:absolute;bottom:.28rem;right:.28rem;font:700 .8rem system-ui;text-indent:0;letter-spacing:0;color:white;background:#102a20d9;border-radius:.3rem;padding:.12rem .35rem;text-shadow:none}
+.board:not(.numbered) em{display:none}
+.board.finished{background-size:100% 100%}.board.finished .tile{visibility:hidden}
+.empty{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:.6rem;color:#fff6e2;background:linear-gradient(155deg,#345b49,#173c31);border-radius:.3rem;padding:1rem}.empty strong{font:italic 2rem Georgia}.empty .pick{justify-self:center;background:#f7efd9;color:#214632;border:0;border-radius:.4rem;padding:.65rem 1.1rem}
+.photoTools{display:flex;flex-wrap:wrap;gap:.35rem .7rem;align-items:center;margin:0 0 1rem}.photoTools button,.photoTools label{font:inherit;font-size:.86rem;text-transform:none;letter-spacing:0;background:transparent;border:0;padding:.55rem 0;color:#2c513d}.photoTools label{display:flex;gap:.35rem;align-items:center;cursor:pointer}.photoTools input{accent-color:#28503d}.photoTools button{text-decoration:underline;text-underline-offset:.2em}
+#reference{width:min(88vw,48rem);text-align:center}#reference img{display:block;margin:.75rem auto;max-width:100%;max-height:66vh}.board:not(.ready) .tile{visibility:hidden}.cabinet{align-self:center}
+</style></head><body>
+<header><nav><div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Schiebefix</div><button id="help" class="plain"><b>?</b> Spielregeln</button></nav></header>
+<main><div class="layout"><div class="cabinet"><i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i><div id="board" class="board" role="group" aria-label="Schiebepuzzle"></div><span class="plate" aria-hidden="true">Schiebefix</span></div><section class="panel"><div class="title"><span class="eyebrow">Das Fotopuzzle</span><h1>Schiebefix</h1><p class="intro" id="goal"></p></div><div><div class="stats"><div class="stat"><small>Züge</small><strong id="moves">0</strong></div><div class="stat"><small>Spielzeit</small><strong id="clock">00:00</strong></div></div><div class="photoTools"><button id="choose">Foto wählen</button><button id="peek">Vorlage ansehen</button><label><input id="numbers" type="checkbox"> Zahlenhilfe</label><button id="download">Spiel mit Foto speichern</button></div><input id="file" type="file" accept="image/*" hidden><label id="sizeLabel">Spielfeld</label><div id="sizes" class="sizes" role="group" aria-labelledby="sizeLabel"></div><button class="action" id="shuffle">⤨ &nbsp; Neu mischen</button><button class="plain undo" id="undo">↶ &nbsp; Zug zurück</button></div></section></div></main><footer>Stein antippen, zur Lücke wischen oder mit den Pfeiltasten schieben.</footer>
+<p id="live" class="sr" aria-live="polite"></p><dialog id="popup"><h2 id="heading"></h2><p id="details"></p><button id="accept" class="action"></button><button id="cancel" class="plain undo">Weiterspielen</button></dialog>
+<dialog id="reference"><h2>Dein Motiv</h2><img id="original" alt="Vollständiges Puzzlefoto"><button class="action" id="back">Zurück zum Spiel</button></dialog>
+<script id="embedded" type="application/json">null</script>
+<script>
+'use strict';
+const template=document.documentElement.cloneNode(true);
+const $=id=>document.getElementById(id), board=$('board'), popup=$('popup');
+const neighbors=(i,n)=>[i-n,i+n,...(i%n?[i-1]:[]),...(i%n<n-1?[i+1]:[])].filter(j=>j>=0&&j<n*n);
+const solved=a=>a.every((v,i)=>v===(i+1)%a.length);
+function deal(n){
+ const a=Array.from({length:n*n},(_,i)=>(i+1)%(n*n)); let gap=a.length-1,previous=-1;
+ for(let i=0;i<n*n*8||solved(a);i++){
+  const choices=neighbors(gap,n).filter(j=>j!==previous);
+  const next=choices[Math.floor(Math.random()*choices.length)];a[gap]=a[next];a[next]=0;previous=gap;gap=next;
+ }
+ return a;
+}
+let photo=null,tileSource=null;let n=4,a=[],history=[],elapsed=0,since=0,started=false,onAccept,gesture=null;
+const invitation=new URLSearchParams(location.hash.slice(1)).get('foto');
+window.addEventListener('hashchange',()=>location.reload());
+const key='schiebefix.pages.'+(invitation?'gastmotiv.':'eigene.')+(document.documentElement.dataset.edition||'local'), time=()=>elapsed+(since?Date.now()-since:0);
+function save(){try{localStorage.setItem(key,JSON.stringify({n,a,history,elapsed:time(),started}))}catch{}}
+function restore(){try{const s=JSON.parse(localStorage.getItem(key));if(!s||![3,4,5].includes(s.n)||s.a.length!==s.n*s.n||new Set(s.a).size!==s.a.length||!s.a.every(v=>Number.isInteger(v)&&v>=0&&v<s.a.length)||!Array.isArray(s.history)||!Number.isFinite(s.elapsed))return false;
+ ({n,a,history,elapsed,started}=s);return true}catch{return false}}
+function timer(){const run=started&&!document.hidden&&!popup.open&&!$('reference').open&&!!photo&&!solved(a);if(run&&!since)since=Date.now();if(!run&&since){elapsed=time();since=0}tick()}
+function tick(){const t=Math.floor(time()/1000);$('clock').textContent=[Math.floor(t/60),t%60].map(v=>String(v).padStart(2,'0')).join(':')}
+function paint(rebuild=false){
+ board.style.setProperty('--n',n);if(rebuild){board.replaceChildren();for(let v=1;v<n*n;v++){const b=document.createElement('button');b.className='tile';b.dataset.value=v;b.innerHTML='<span><canvas aria-hidden="true"></canvas><em>'+v+'</em></span>';if(tileSource)drawPiece(b.querySelector('canvas'),v,n);board.append(b)}}
+ const gap=a.indexOf(0),legal=neighbors(gap,n);
+ for(const b of board.querySelectorAll('.tile')){const i=a.indexOf(+b.dataset.value);b.style.transform='translate('+i%n*100+'%,'+Math.floor(i/n)*100+'%)';b.dataset.movable=legal.includes(i);b.setAttribute('aria-label','Stein '+b.dataset.value+', Reihe '+(1+Math.floor(i/n))+', Spalte '+(i%n+1));b.setAttribute('aria-disabled',String(!legal.includes(i)||solved(a)))}
+ $('moves').textContent=history.length;$('undo').disabled=!history.length;$('goal').textContent='Setze dein Foto Stück für Stück zusammen. Die Lücke gehört nach rechts unten.';for(const b of $('sizes').children)b.setAttribute('aria-pressed',String(+b.dataset.n===n));board.classList.toggle('finished',!!photo&&solved(a));board.style.backgroundImage=photo&&solved(a)?'url("'+photo+'")':'';timer()
+}
+function reset(size){n=size;a=deal(n);history=[];elapsed=since=0;started=false;paint(true);save()}
+function modal(title,body,action,fn,canCancel=false){$('heading').textContent=title;$('details').textContent=body;$('accept').textContent=action;$('cancel').hidden=!canCancel;$('cancel').style.display=canCancel?'block':'none';onAccept=fn;popup.showModal();timer()}
+function move(i){const gap=a.indexOf(0);if(!photo||solved(a)||!neighbors(gap,n).includes(i))return;history.push(a[i]);a[gap]=a[i];a[i]=0;started=true;paint();save();$('live').textContent='Zug '+history.length+', Stein '+a[gap]+'.';if(solved(a))modal('Geschafft!','Dein Foto ist vollständig. Du hast '+history.length+' Züge und '+$('clock').textContent+' gebraucht.','Noch eine Runde',()=>reset(n),true)}
+function requestDeal(size){if(history.length&&!solved(a))modal('Neue Runde?','Damit beendest du die laufende Partie.','Neu mischen',()=>reset(size),true);else reset(size)}
+for(const s of [3,4,5]){const b=document.createElement('button');b.textContent=s+' × '+s;b.dataset.n=s;b.onclick=()=>{if(photo&&n!==s)requestDeal(s);else if(!photo){n=s;for(const item of $('sizes').children)item.setAttribute('aria-pressed',String(+item.dataset.n===s))}};$('sizes').append(b)}
+$('shuffle').onclick=()=>requestDeal(n);$('undo').onclick=()=>{if(!history.length)return;const gap=a.indexOf(0),v=history.pop(),i=a.indexOf(v);a[gap]=v;a[i]=0;paint();save();$('live').textContent='Zug zurückgenommen.'};
+board.onpointerdown=e=>{const b=e.target.closest('.tile');if(!b)return;gesture={id:e.pointerId,v:+b.dataset.value,x:e.clientX,y:e.clientY};b.setPointerCapture(e.pointerId)};
+board.onpointercancel=()=>gesture=null;
+board.onpointerup=e=>{if(!gesture||e.pointerId!==gesture.id)return;const {v,x,y}=gesture;gesture=null;const dx=e.clientX-x,dy=e.clientY-y,i=a.indexOf(v),gap=a.indexOf(0),delta=Math.abs(dx)>Math.abs(dy)?Math.sign(dx):Math.sign(dy)*n;if(Math.max(Math.abs(dx),Math.abs(dy))<12||gap-i===delta)move(i)};
+board.onclick=e=>{const b=e.target.closest('.tile');if(b&&e.detail===0)move(a.indexOf(+b.dataset.value))};
+document.addEventListener('keydown',e=>{if($('reference').open||popup.open||e.altKey||e.ctrlKey||e.metaKey)return;const d={ArrowUp:n,ArrowDown:-n,ArrowLeft:1,ArrowRight:-1}[e.key];if(d){e.preventDefault();move(a.indexOf(0)+d)}});
+$('help').onclick=()=>modal('Spielregeln','Setze das Bild wie in der Vorlage zusammen. Mit der Zahlenhilfe siehst du die Reihenfolge der Bildteile. Ein Stein direkt neben der Lücke kann hineingleiten. Tippe ihn an, wische zur Lücke oder drücke die Pfeiltaste in seine Bewegungsrichtung. Die Uhr startet mit dem ersten Zug.','Verstanden');
+$('cancel').onclick=()=>popup.close();$('accept').onclick=()=>{popup.close();onAccept?.()};popup.onclose=timer;
+
+const source=JSON.parse($('embedded').textContent);
+function drawPiece(canvas,value,size){
+ const col=(value-1)%size,row=Math.floor((value-1)/size);
+ const w=tileSource.naturalWidth||tileSource.width,h=tileSource.naturalHeight||tileSource.height;
+ const x=Math.round(col*w/size),y=Math.round(row*h/size);
+ canvas.width=Math.round((col+1)*w/size)-x;canvas.height=Math.round((row+1)*h/size)-y;
+ canvas.getContext('2d').drawImage(tileSource,x,y,canvas.width,canvas.height,0,0,canvas.width,canvas.height);
+}
+function applyPhoto(src,image){
+ tileSource=image;
+ photo=src;$('original').src=src;
+ board.style.setProperty('--ratio',String(imageWidth/imageHeight));
+ board.classList.add('ready');board.querySelector('.empty')?.remove();
+ for(const id of ['peek','download','shuffle','numbers'])$(id).disabled=false;
+}
+let imageWidth=4,imageHeight=3;
+function loadImage(src){return new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=src})}
+async function invitedPhoto(token){
+ if(!/^[A-Za-z0-9_-]{43}$/.test(token))throw Error();
+ const raw=Uint8Array.from(atob(token.replace(/-/g,'+').replace(/_/g,'/')),ch=>ch.charCodeAt(0));
+ const aes=await crypto.subtle.importKey('raw',raw,{name:'AES-GCM'},false,['decrypt']);
+ const response=await fetch('./motiv.bin');if(!response.ok)throw Error();
+ const bytes=new Uint8Array(await response.arrayBuffer());
+ const jpeg=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes.slice(0,12)},aes,bytes.slice(12));
+ return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(new Blob([jpeg],{type:'image/jpeg'}))});
+}
+async function init(){
+ let src=source;
+ if(invitation){try{src=await invitedPhoto(invitation)}catch{modal('Fotolink konnte nicht geöffnet werden','Öffne den vollständigen Einladungslink oder wähle ein eigenes Foto.','Verstanden')}}
+ else {try{src=localStorage.getItem(key+'.image')||src}catch{}}
+ if(src){try{const img=await loadImage(src);imageWidth=img.naturalWidth;imageHeight=img.naturalHeight;applyPhoto(src,img)}catch{}}
+ if(!restore())reset(4);else paint(true);
+ if(!photo){const entry=document.createElement('div');entry.className='empty';entry.innerHTML='<strong>Dein Fotopuzzle</strong><button class="pick">Bild auswählen</button>';entry.querySelector('button').onclick=()=>$('file').click();board.append(entry);for(const id of ['peek','download','shuffle','numbers'])$(id).disabled=true}
+}
+$('choose').onclick=()=>$('file').click();
+$('file').onchange=async()=>{
+ const f=$('file').files[0];if(!f)return;const url=URL.createObjectURL(f);
+ try{const img=await loadImage(url),scale=Math.min(1,3840/Math.max(img.naturalWidth,img.naturalHeight));
+ const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*scale));c.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=c.getContext('2d');ctx.fillStyle='#f4efe2';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);
+ const commit=()=>{imageWidth=c.width;imageHeight=c.height;applyPhoto(c.toDataURL('image/jpeg',.89),c);reset(n);try{localStorage.setItem(key+'.image',photo)}catch{try{localStorage.removeItem(key+'.image')}catch{}modal('Foto für diese Runde geladen','Mit „Spiel mit Foto speichern“ kannst du dieses Motiv dauerhaft als eigene Spieldatei behalten.','Verstanden')}};
+ if(photo&&history.length&&!solved(a))modal('Foto wechseln?','Mit dem neuen Foto beginnt eine neue Runde.','Foto wechseln',commit,true);else commit()
+ }catch{modal('Foto konnte nicht geöffnet werden','Wähle ein Foto als JPG, PNG oder WebP.','Verstanden')}finally{URL.revokeObjectURL(url);$('file').value=''}
+};
+$('peek').onclick=()=>{$('reference').showModal();timer()};$('back').onclick=()=>$('reference').close();$('reference').onclose=timer;
+$('numbers').onchange=()=>board.classList.toggle('numbered',$('numbers').checked);
+
+$('download').onclick=()=>{const copy=template.cloneNode(true);copy.dataset.edition=Date.now().toString(36);copy.querySelector('#embedded').textContent=JSON.stringify(photo);const url=URL.createObjectURL(new Blob(['<!doctype html>'+copy.outerHTML],{type:'text/html;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download='Schiebefix-mit-Foto.html';link.click();setTimeout(()=>URL.revokeObjectURL(url),30000)};
+init();
+
+document.addEventListener('visibilitychange',()=>{timer();save()});window.addEventListener('pagehide',save);setInterval(tick,250)
+</script></body></html>
