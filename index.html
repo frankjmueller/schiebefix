@@ -33,11 +33,12 @@
 .photoTools{display:flex;flex-wrap:wrap;gap:.35rem .7rem;align-items:center;margin:0 0 1rem}.photoTools button,.photoTools label{font:inherit;font-size:.86rem;text-transform:none;letter-spacing:0;background:transparent;border:0;padding:.55rem 0;color:#2c513d}.photoTools label{display:flex;gap:.35rem;align-items:center;cursor:pointer}.photoTools input{accent-color:#28503d}.photoTools button{text-decoration:underline;text-underline-offset:.2em}
 #reference{width:min(88vw,48rem);text-align:center}#reference img{display:block;margin:.75rem auto;max-width:100%;max-height:66vh}.cabinet{align-self:center}
 .classic{aspect-ratio:1}.classic .tile{padding:.13rem}.classic .tile span,.classic .tile[data-movable=true]:hover span{display:grid;place-items:center;border-radius:.45rem;background:linear-gradient(135deg,#fff6df,#e3d3ae);color:#264634;box-shadow:inset 1px 2px #fff9e9,inset -1px -.2rem #b9a784}.classic .tile span::after{display:none}.photoTools [hidden]{display:none}
+#gallery{width:min(36rem,94vw);max-height:85vh;overflow:auto}#galleryList{display:grid;grid-template-columns:repeat(auto-fill,minmax(8rem,1fr));gap:1rem;margin:1rem 0}.photoCard{min-width:0}.photoCard button{width:100%}.pickPhoto{display:grid;gap:.4rem;background:#fff9e9;border:1px solid #b7b69e;border-radius:.5rem;overflow:hidden;padding:.35rem}.pickPhoto img{width:100%;height:5rem;object-fit:cover}.pickPhoto span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}.shareLink{display:inline-block;color:#214e3a;padding:.65rem 0;font-weight:bold}.shareLink[hidden]{display:none}#galleryStatus{font-size:.9rem}
 </style></head><body>
 <header><nav><div class="brand"><span class="logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Schiebefix</div><button id="help" class="plain"><b>?</b> Spielregeln</button></nav></header>
-<main><div class="layout"><div class="cabinet"><i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i><div id="board" class="board classic" role="group" aria-label="Schiebepuzzle"></div><span class="plate" aria-hidden="true">Schiebefix</span></div><section class="panel"><div class="title"><span class="eyebrow">Das Zahlenpuzzle</span><h1>Schiebefix</h1><p class="intro" id="goal"></p></div><div><div class="stats"><div class="stat"><small>Züge</small><strong id="moves">0</strong></div><div class="stat"><small>Spielzeit</small><strong id="clock">00:00</strong></div></div><div class="photoTools"><button id="choose">Foto wählen</button><button id="classic" hidden>Zahlen spielen</button><button id="peek">Vorlage ansehen</button><label><input id="numbers" type="checkbox"> Zahlenhilfe</label><button id="download">Spiel mit Foto speichern</button></div><input id="file" type="file" accept="image/*" hidden><label id="sizeLabel">Spielfeld</label><div id="sizes" class="sizes" role="group" aria-labelledby="sizeLabel"></div><button class="action" id="shuffle">⤨ &nbsp; Neu mischen</button><button class="plain undo" id="undo">↶ &nbsp; Zug zurück</button></div></section></div></main><footer>Stein antippen, zur Lücke wischen oder mit den Pfeiltasten schieben.</footer>
-<p id="live" class="sr" aria-live="polite"></p><dialog id="popup"><h2 id="heading"></h2><p id="details"></p><button id="accept" class="action"></button><button id="cancel" class="plain undo">Weiterspielen</button></dialog>
-<dialog id="reference"><h2>Dein Motiv</h2><img id="original" alt="Vollständiges Puzzlefoto"><button class="action" id="back">Zurück zum Spiel</button></dialog>
+<main><div class="layout"><div class="cabinet"><i class="screw tl"></i><i class="screw tr"></i><i class="screw bl"></i><i class="screw br"></i><div id="board" class="board classic" role="group" aria-label="Schiebepuzzle"></div><span class="plate" aria-hidden="true">Schiebefix</span></div><section class="panel"><div class="title"><span class="eyebrow">Das Zahlenpuzzle</span><h1>Schiebefix</h1><p class="intro" id="goal"></p></div><div><div class="stats"><div class="stat"><small>Züge</small><strong id="moves">0</strong></div><div class="stat"><small>Spielzeit</small><strong id="clock">00:00</strong></div></div><div class="photoTools"><button id="choose">Fotogalerie</button><button id="classic" hidden>Zahlen spielen</button><button id="peek">Vorlage ansehen</button><label><input id="numbers" type="checkbox"> Zahlenhilfe</label><button id="download">Spiel mit Foto speichern</button></div><input id="file" multiple type="file" accept="image/*" hidden><label id="sizeLabel">Spielfeld</label><div id="sizes" class="sizes" role="group" aria-labelledby="sizeLabel"></div><a id="shareResult" class="shareLink" hidden target="_blank" rel="noopener noreferrer">Ergebnis auf Mastodon teilen ↗</a><button class="action" id="shuffle">⤨ &nbsp; Neu mischen</button><button class="plain undo" id="undo">↶ &nbsp; Zug zurück</button></div></section></div></main><footer>Stein antippen, zur Lücke wischen oder mit den Pfeiltasten schieben.</footer>
+<p id="live" class="sr" aria-live="polite"></p><dialog id="popup"><h2 id="heading"></h2><p id="details"></p><a id="shareWin" class="shareLink" hidden target="_blank" rel="noopener noreferrer">Ergebnis auf Mastodon teilen ↗</a><button id="accept" class="action"></button><button id="cancel" class="plain undo">Weiterspielen</button></dialog>
+<dialog id="gallery" aria-labelledby="galleryTitle"><h2 id="galleryTitle">Meine Fotogalerie</h2><p>Deine Bilder bleiben in diesem Browser. Tippe auf ein Bild, um damit zu spielen.</p><button class="action" id="addPhotos">Bilder hinzufügen</button><p id="galleryStatus" role="status"></p><div id="galleryList"></div><button class="plain" id="galleryClose">Schließen</button></dialog><dialog id="reference"><h2>Dein Motiv</h2><img id="original" alt="Vollständiges Puzzlefoto"><button class="action" id="back">Zurück zum Spiel</button></dialog>
 <script id="embedded" type="application/json">null</script>
 <script>
 'use strict';
@@ -53,15 +54,22 @@ function deal(n){
  }
  return a;
 }
+let activePhotoId=null;
 let photo=null,tileSource=null;let n=4,a=[],history=[],elapsed=0,since=0,started=false,onAccept,gesture=null;
 const invitation=new URLSearchParams(location.hash.slice(1)).get('foto');
 window.addEventListener('hashchange',()=>location.reload());
 const key='schiebefix.pages.'+(invitation?'gastmotiv.':'eigene.')+(document.documentElement.dataset.edition||'local'), time=()=>elapsed+(since?Date.now()-since:0);
-function save(){try{localStorage.setItem(key,JSON.stringify({n,a,history,elapsed:time(),started}))}catch{}}
+function save(){try{localStorage.setItem(key,JSON.stringify({n,a,history,elapsed:time(),started,photoId:activePhotoId}))}catch{}}
 function restore(){try{const s=JSON.parse(localStorage.getItem(key));if(!s||![3,4,5].includes(s.n)||s.a.length!==s.n*s.n||new Set(s.a).size!==s.a.length||!s.a.every(v=>Number.isInteger(v)&&v>=0&&v<s.a.length)||!Array.isArray(s.history)||!Number.isFinite(s.elapsed))return false;
  ({n,a,history,elapsed,started}=s);return true}catch{return false}}
-function timer(){const run=started&&!document.hidden&&!popup.open&&!$('reference').open&&!solved(a);if(run&&!since)since=Date.now();if(!run&&since){elapsed=time();since=0}tick()}
+function timer(){const run=started&&!document.hidden&&!popup.open&&!$('reference').open&&!$('gallery').open&&!solved(a);if(run&&!since)since=Date.now();if(!run&&since){elapsed=time();since=0}tick()}
 function tick(){const t=Math.floor(time()/1000);$('clock').textContent=[Math.floor(t/60),t%60].map(v=>String(v).padStart(2,'0')).join(':')}
+function updateShareLink(){
+ const link=$('shareResult');link.hidden=!solved(a)||!history.length;
+ if(link.hidden){link.removeAttribute('href');return}
+ const text='Schiebefix geschafft! '+n+' × '+n+' in '+history.length+(history.length===1?' Zug und ':' Zügen und ')+$('clock').textContent+' (Min:Sek).\nhttps://frankjmueller.github.io/schiebefix/';
+ link.href='https://share.joinmastodon.org/#text='+encodeURIComponent(text)
+}
 function paint(rebuild=false){
  board.classList.toggle('classic',!photo);
  for(const el of [$('peek'),$('classic'),$('download'),$('numbers').parentElement])el.hidden=!photo;
@@ -69,10 +77,10 @@ function paint(rebuild=false){
  board.style.setProperty('--n',n);if(rebuild){board.replaceChildren();for(let v=1;v<n*n;v++){const b=document.createElement('button');b.className='tile';b.dataset.value=v;b.innerHTML=photo?'<span><canvas aria-hidden="true"></canvas><em>'+v+'</em></span>':'<span>'+v+'</span>';if(tileSource)drawPiece(b.querySelector('canvas'),v,n);board.append(b)}}
  const gap=a.indexOf(0),legal=neighbors(gap,n);
  for(const b of board.querySelectorAll('.tile')){const i=a.indexOf(+b.dataset.value);b.style.transform='translate('+i%n*100+'%,'+Math.floor(i/n)*100+'%)';b.dataset.movable=legal.includes(i);b.setAttribute('aria-label','Stein '+b.dataset.value+', Reihe '+(1+Math.floor(i/n))+', Spalte '+(i%n+1));b.setAttribute('aria-disabled',String(!legal.includes(i)||solved(a)))}
- $('moves').textContent=history.length;$('undo').disabled=!history.length;$('goal').textContent=!photo?'Ordne die Zahlen von 1 bis '+(n*n-1)+'. Die Lücke gehört nach rechts unten.':'Setze dein Foto Stück für Stück zusammen. Die Lücke gehört nach rechts unten.';for(const b of $('sizes').children)b.setAttribute('aria-pressed',String(+b.dataset.n===n));board.classList.toggle('finished',!!photo&&solved(a));board.style.backgroundImage=photo&&solved(a)?'url("'+photo+'")':'';timer()
+ $('moves').textContent=history.length;$('undo').disabled=!history.length;$('goal').textContent=!photo?'Ordne die Zahlen von 1 bis '+(n*n-1)+'. Die Lücke gehört nach rechts unten.':'Setze dein Foto Stück für Stück zusammen. Die Lücke gehört nach rechts unten.';for(const b of $('sizes').children)b.setAttribute('aria-pressed',String(+b.dataset.n===n));board.classList.toggle('finished',!!photo&&solved(a));board.style.backgroundImage=photo&&solved(a)?'url("'+photo+'")':'';timer();updateShareLink()
 }
 function reset(size){n=size;a=deal(n);history=[];elapsed=since=0;started=false;paint(true);save()}
-function modal(title,body,action,fn,canCancel=false){$('heading').textContent=title;$('details').textContent=body;$('accept').textContent=action;$('cancel').hidden=!canCancel;$('cancel').style.display=canCancel?'block':'none';onAccept=fn;popup.showModal();timer()}
+function modal(title,body,action,fn,canCancel=false){$('shareWin').hidden=title!=='Geschafft!';if(!$('shareWin').hidden)$('shareWin').href=$('shareResult').href;$('heading').textContent=title;$('details').textContent=body;$('accept').textContent=action;$('cancel').hidden=!canCancel;$('cancel').style.display=canCancel?'block':'none';onAccept=fn;popup.showModal();timer()}
 function move(i){const gap=a.indexOf(0);if(solved(a)||!neighbors(gap,n).includes(i))return;history.push(a[i]);a[gap]=a[i];a[i]=0;started=true;paint();save();$('live').textContent='Zug '+history.length+', Stein '+a[gap]+'.';if(solved(a))modal('Geschafft!',(photo?'Dein Foto ist vollständig.':'Alle Zahlen sind geordnet.')+' Du hast '+history.length+' Züge und '+$('clock').textContent+' gebraucht.','Noch eine Runde',()=>reset(n),true)}
 function requestDeal(size){if(history.length&&!solved(a))modal('Neue Runde?','Damit beendest du die laufende Partie.','Neu mischen',()=>reset(size),true);else reset(size)}
 for(const s of [3,4,5]){const b=document.createElement('button');b.textContent=s+' × '+s;b.dataset.n=s;b.onclick=()=>{if(n!==s)requestDeal(s)};$('sizes').append(b)}
@@ -81,7 +89,7 @@ board.onpointerdown=e=>{const b=e.target.closest('.tile');if(!b)return;gesture={
 board.onpointercancel=()=>gesture=null;
 board.onpointerup=e=>{if(!gesture||e.pointerId!==gesture.id)return;const {v,x,y}=gesture;gesture=null;const dx=e.clientX-x,dy=e.clientY-y,i=a.indexOf(v),gap=a.indexOf(0),delta=Math.abs(dx)>Math.abs(dy)?Math.sign(dx):Math.sign(dy)*n;if(Math.max(Math.abs(dx),Math.abs(dy))<12||gap-i===delta)move(i)};
 board.onclick=e=>{const b=e.target.closest('.tile');if(b&&e.detail===0)move(a.indexOf(+b.dataset.value))};
-document.addEventListener('keydown',e=>{if($('reference').open||popup.open||e.altKey||e.ctrlKey||e.metaKey)return;const d={ArrowUp:n,ArrowDown:-n,ArrowLeft:1,ArrowRight:-1}[e.key];if(d){e.preventDefault();move(a.indexOf(0)+d)}});
+document.addEventListener('keydown',e=>{if($('gallery').open||$('reference').open||popup.open||e.altKey||e.ctrlKey||e.metaKey)return;const d={ArrowUp:n,ArrowDown:-n,ArrowLeft:1,ArrowRight:-1}[e.key];if(d){e.preventDefault();move(a.indexOf(0)+d)}});
 $('help').onclick=()=>modal('Spielregeln',(photo?'Setze das Bild wie in der Vorlage zusammen.':'Ordne die Zahlen zeilenweise von links nach rechts.')+' Ein Stein direkt neben der Lücke kann hineingleiten. Tippe ihn an, wische zur Lücke oder drücke die Pfeiltaste in seine Bewegungsrichtung. Die Uhr startet mit dem ersten Zug.','Verstanden');
 $('cancel').onclick=()=>popup.close();$('accept').onclick=()=>{popup.close();onAccept?.()};popup.onclose=timer;
 
@@ -110,25 +118,96 @@ async function invitedPhoto(token){
  const jpeg=await crypto.subtle.decrypt({name:'AES-GCM',iv:bytes.slice(0,12)},aes,bytes.slice(12));
  return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(new Blob([jpeg],{type:'image/jpeg'}))});
 }
-async function init(){
- let src=source;
- if(invitation){try{src=await invitedPhoto(invitation)}catch{modal('Fotolink konnte nicht geöffnet werden','Öffne den vollständigen Einladungslink oder wähle ein eigenes Foto.','Verstanden')}}
- else {try{src=localStorage.getItem(key+'.image')||src}catch{}}
- if(src){try{const img=await loadImage(src);imageWidth=img.naturalWidth;imageHeight=img.naturalHeight;applyPhoto(src,img)}catch{}}
- if(!restore())reset(4);else paint(true);
+let galleryDB;
+function openGallery(){
+ if(!galleryDB)galleryDB=new Promise((resolve,reject)=>{
+  const req=indexedDB.open('schiebefix-fotogalerie',1);
+  req.onupgradeneeded=()=>{req.result.createObjectStore('bilder');req.result.createObjectStore('vorschau',{keyPath:'id'})};
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)
+ }).catch(error=>{galleryDB=null;throw error});
+ return galleryDB
 }
-$('classic').onclick=()=>{
- const change=()=>{photo=tileSource=null;board.style.removeProperty('--ratio');$('original').removeAttribute('src');try{localStorage.removeItem(key+'.image')}catch{}reset(n)};
- if(history.length&&!solved(a))modal('Zahlen spielen?','Damit beginnt eine neue Runde mit Zahlen.','Zahlen spielen',change,true);else change()
-};
-$('choose').onclick=()=>$('file').click();
+async function galleryRead(store,method,...args){
+ const db=await openGallery();return new Promise((resolve,reject)=>{
+  const req=db.transaction(store).objectStore(store)[method](...args);
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)
+ })
+}
+async function galleryWrite(id,record,data){
+ const db=await openGallery();return new Promise((resolve,reject)=>{
+  const tx=db.transaction(['bilder','vorschau'],'readwrite');
+  tx.oncomplete=resolve;tx.onabort=()=>reject(tx.error);
+  if(record){tx.objectStore('bilder').put(data,id);tx.objectStore('vorschau').put(record)}
+  else{tx.objectStore('bilder').delete(id);tx.objectStore('vorschau').delete(id)}
+ })
+}
+function photoCanvas(img,limit){
+ const scale=Math.min(1,limit/Math.max(img.width,img.height)),canvas=document.createElement('canvas');
+ canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));
+ const ctx=canvas.getContext('2d');ctx.fillStyle='#f4efe2';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);return canvas
+}
+async function storePhoto(img,name,data,id=crypto.randomUUID()){
+ const thumb=photoCanvas(img,280).toDataURL('image/jpeg',.78);
+ await galleryWrite(id,{id,name,thumb,created:Date.now()},data);return id
+}
+async function init(){
+ let src=source,missing=false,saved;
+ try{saved=JSON.parse(localStorage.getItem(key))}catch{}
+ if(invitation){try{src=await invitedPhoto(invitation)}catch{modal('Fotolink konnte nicht geöffnet werden','Öffne den vollständigen Einladungslink oder wähle ein eigenes Foto.','Verstanden')}}
+ else if(saved?.photoId){
+  try{src=await galleryRead('bilder','get',saved.photoId);if(src)activePhotoId=saved.photoId;else missing=true}catch{missing=true}
+ }else{
+  let legacy;try{legacy=localStorage.getItem(key+'.image')}catch{}
+  if(legacy){
+   src=legacy;
+   try{activePhotoId=await storePhoto(await loadImage(src),'Bisheriges Foto',src,'bisher-'+key);localStorage.removeItem(key+'.image')}catch{}
+  }
+ }
+ if(src){try{const img=await loadImage(src);imageWidth=img.naturalWidth;imageHeight=img.naturalHeight;applyPhoto(src,img)}catch{missing=true;activePhotoId=null}}
+ if(missing||!restore())reset(4);else {paint(true);save()}
+}
+function playNumbers(){
+ activePhotoId=photo=tileSource=null;board.style.removeProperty('--ratio');$('original').removeAttribute('src');
+ try{localStorage.removeItem(key+'.image')}catch{}reset(n)
+}
+$('classic').onclick=()=>{if(history.length&&!solved(a))modal('Zahlen spielen?','Damit beginnt eine neue Runde mit Zahlen.','Zahlen spielen',playNumbers,true);else playNumbers()};
+async function playGalleryPhoto(id){
+ try{
+  const src=await galleryRead('bilder','get',id);if(!src)throw Error();
+  const img=await loadImage(src);
+  const start=()=>{activePhotoId=id;imageWidth=img.naturalWidth;imageHeight=img.naturalHeight;applyPhoto(src,img);reset(n)};
+  $('gallery').close();if(history.length&&!solved(a))modal('Foto wechseln?','Mit diesem Bild beginnt eine neue Runde.','Foto spielen',start,true);else start()
+ }catch{$('galleryStatus').textContent='Dieses Bild konnte nicht geladen werden.'}
+}
+async function renderGallery(message=''){
+ const entries=await galleryRead('vorschau','getAll'),list=$('galleryList');list.replaceChildren();
+ for(const entry of entries.sort((a,b)=>b.created-a.created)){
+  const card=document.createElement('div'),pick=document.createElement('button'),img=document.createElement('img'),name=document.createElement('span'),remove=document.createElement('button');
+  card.className='photoCard';pick.className='pickPhoto';img.src=entry.thumb;img.alt='';name.textContent=entry.name;
+  pick.setAttribute('aria-label',entry.name+' spielen');pick.append(img,name);pick.onclick=()=>playGalleryPhoto(entry.id);
+  remove.className='plain';remove.textContent='Entfernen';remove.setAttribute('aria-label',entry.name+' entfernen');
+  remove.onclick=async()=>{
+   if(!confirm('„'+entry.name+'“ aus der lokalen Galerie entfernen?'+(activePhotoId===entry.id?' Damit endet die aktuelle Fotorunde.':'')))return;
+   try{await galleryWrite(entry.id);if(activePhotoId===entry.id)playNumbers();await renderGallery('Bild entfernt.')}catch{$('galleryStatus').textContent='Das Bild konnte nicht entfernt werden.'}
+  };
+  card.append(pick,remove);list.append(card)
+ }
+ $('galleryStatus').textContent=message||(entries.length?'':'Deine Galerie ist noch leer.')
+}
+$('choose').onclick=async()=>{$('gallery').showModal();timer();try{await renderGallery()}catch{$('galleryStatus').textContent='Der lokale Bildspeicher ist in diesem Browser nicht verfügbar.'}};
+$('galleryClose').onclick=()=>$('gallery').close();$('gallery').onclose=timer;
+$('addPhotos').onclick=()=>$('file').click();
 $('file').onchange=async()=>{
- const f=$('file').files[0];if(!f)return;const url=URL.createObjectURL(f);
- try{const img=await loadImage(url),scale=Math.min(1,3840/Math.max(img.naturalWidth,img.naturalHeight));
- const c=document.createElement('canvas');c.width=Math.max(1,Math.round(img.naturalWidth*scale));c.height=Math.max(1,Math.round(img.naturalHeight*scale));const ctx=c.getContext('2d');ctx.fillStyle='#f4efe2';ctx.fillRect(0,0,c.width,c.height);ctx.drawImage(img,0,0,c.width,c.height);
- const commit=()=>{imageWidth=c.width;imageHeight=c.height;applyPhoto(c.toDataURL('image/jpeg',.89),c);reset(n);try{localStorage.setItem(key+'.image',photo)}catch{try{localStorage.removeItem(key+'.image')}catch{}modal('Foto für diese Runde geladen','Mit „Spiel mit Foto speichern“ kannst du dieses Motiv dauerhaft als eigene Spieldatei behalten.','Verstanden')}};
- if(history.length&&!solved(a))modal('Foto wechseln?','Mit dem neuen Foto beginnt eine neue Runde.','Foto wechseln',commit,true);else commit()
- }catch{modal('Foto konnte nicht geöffnet werden','Wähle ein Foto als JPG, PNG oder WebP.','Verstanden')}finally{URL.revokeObjectURL(url);$('file').value=''}
+ const files=Array.from($('file').files);$('file').value='';if(!files.length)return;
+ $('addPhotos').disabled=true;let added=0;const failed=[];
+ try{for(const file of files){
+  $('galleryStatus').textContent='Bild '+(added+failed.length+1)+' von '+files.length+' wird gespeichert …';
+  const url=URL.createObjectURL(file);
+  try{const img=await loadImage(url),canvas=photoCanvas(img,3840);await storePhoto(canvas,file.name,canvas.toDataURL('image/jpeg',.89));added++}
+  catch{failed.push(file.name)}finally{URL.revokeObjectURL(url)}
+ }
+ await renderGallery(added+' gespeichert.'+(failed.length?' Speichern fehlgeschlagen: '+failed.join(', '):' Wähle ein Bild zum Spielen.'))
+ }catch{$('galleryStatus').textContent='Die Galerie konnte nicht geöffnet werden.'}finally{$('addPhotos').disabled=false}
 };
 $('peek').onclick=()=>{$('reference').showModal();timer()};$('back').onclick=()=>$('reference').close();$('reference').onclose=timer;
 $('numbers').onchange=()=>board.classList.toggle('numbered',$('numbers').checked);
