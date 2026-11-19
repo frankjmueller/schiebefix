@@ -42,6 +42,7 @@
 <dialog id="gallery" aria-labelledby="galleryTitle"><h2 id="galleryTitle"><span data-en="My photo gallery">Meine Fotogalerie</span></h2><p><span data-en="Your photos stay in this browser. Tap a photo to play with it.">Deine Bilder bleiben in diesem Browser. Tippe auf ein Bild, um damit zu spielen.</span></p><button class="action" id="addPhotos"><span data-en="Add photos">Bilder hinzufügen</span></button><p id="galleryStatus" role="status"></p><div id="galleryList"></div><button class="plain" id="galleryClose"><span data-en="Close">Schließen</span></button></dialog><dialog id="reference"><h2><span data-en="Your photo">Dein Motiv</span></h2><img id="original" alt="Vollständiges Puzzlefoto"><button class="action" id="back"><span data-en="Back to game">Zurück zum Spiel</span></button></dialog>
 <script id="embedded" type="application/json">null</script>
 <script>
+(function(){
 'use strict';
 const template=document.documentElement.cloneNode(true);
 const $=id=>document.getElementById(id), board=$('board'), popup=$('popup');
@@ -60,16 +61,17 @@ function syncAddress(){
  const current=new URL(location.href);
  current.pathname=current.pathname.replace(/(?:index\.html|en\.html)?$/,'')+(language==='en'?'en.html':'');
  current.searchParams.delete('lang');
- if(current.href!==location.href)window.history.replaceState(null,'',current.href)
+ if(current.href===location.href)return;
+ try{window.history.replaceState(null,'',current.href)}catch{/* The board also works at the original address. */}
 }
 function t(de,en){return language==='en'?en:de}
 function setLanguage(value){
  language=value==='en'?'en':'de';document.documentElement.lang=language;$('language').value=language;
- for(const el of document.querySelectorAll('[data-en]')){el.dataset.de??=el.textContent;el.textContent=t(el.dataset.de,el.dataset.en)}
+ for(const el of document.querySelectorAll('[data-en]')){if(el.dataset.de===undefined)el.dataset.de=el.textContent;el.textContent=t(el.dataset.de,el.dataset.en)}
  board.setAttribute('aria-label',t('Schiebepuzzle','Sliding puzzle'));$('original').alt=t('Vollständiges Puzzlefoto','Complete puzzle photo');
  document.title=t('Schiebefix · Schiebepuzzle','Schiebefix · Sliding puzzle');
 }
-setLanguage(language);syncAddress();
+setLanguage(language);
 $('language').onchange=()=>{setLanguage($('language').value);syncAddress();try{localStorage.setItem('schiebefix.language',language)}catch{}$('live').textContent='';if(a.length)paint()};
 const neighbors=(i,n)=>[i-n,i+n,...(i%n?[i-1]:[]),...(i%n<n-1?[i+1]:[])].filter(j=>j>=0&&j<n*n);
 const solved=a=>a.every((v,i)=>v===(i+1)%a.length);
@@ -240,7 +242,8 @@ $('peek').onclick=()=>{$('reference').showModal();timer()};$('back').onclick=()=
 $('numbers').onchange=()=>board.classList.toggle('numbered',$('numbers').checked);
 
 $('download').onclick=()=>{const copy=template.cloneNode(true);copy.lang=language;copy.dataset.edition=Date.now().toString(36);copy.querySelector('#embedded').textContent=JSON.stringify(photo);const url=URL.createObjectURL(new Blob(['<!doctype html>'+copy.outerHTML],{type:'text/html;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download=t('Schiebefix-mit-Foto.html','Schiebefix-with-photo.html');link.click();setTimeout(()=>URL.revokeObjectURL(url),30000)};
-init();
+init().then(syncAddress);
 
 document.addEventListener('visibilitychange',()=>{timer();save()});window.addEventListener('pagehide',save);setInterval(tick,250)
+})();
 </script></body></html>
