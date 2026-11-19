@@ -1,3 +1,6 @@
+---
+layout: null
+---
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Schiebefix · The sliding puzzle</title>
@@ -18,6 +21,5 @@
 <meta name="twitter:description" content="Play with number tiles or use your own photo.">
 <meta name="twitter:image" content="https://frankjmueller.github.io/schiebefix/preview-en.jpg">
 <meta name="twitter:image:alt" content="Schiebefix, the sliding puzzle, with cream number tiles in a green frame.">
-</head><body><a href="./?lang=en">Play Schiebefix in English</a><script>
-const game=new URL('./',location.href);game.search=location.search;game.searchParams.set('lang','en');game.hash=location.hash;location.replace(game.href);
-</script></body></html>
+{% capture app %}{% include_relative index.html %}{% endcapture %}
+<style>{{ app | split: '<style>' | last }}
