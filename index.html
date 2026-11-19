@@ -51,10 +51,10 @@ const requested=online?pageUrl.searchParams.get('lang'):null;
 let preferred;
 try{preferred=localStorage.getItem('schiebefix.language')}catch{}
 const supported=value=>value==='de'||value==='en';
-const browserLanguage=(navigator.languages?.length?navigator.languages:[navigator.language])
- .map(value=>(value||'').toLowerCase().split('-')[0]).find(supported);
+const primaryLocale=navigator.languages?.[0]||navigator.language||'';
+const browserLanguage=/^de(?:[-_]|$)/i.test(primaryLocale)?'de':'en';
 let language=supported(requested)?requested:online&&pageUrl.pathname.endsWith('/en.html')?'en':
- supported(preferred)?preferred:online?(browserLanguage||'de'):document.documentElement.lang;
+ supported(preferred)?preferred:online?browserLanguage:document.documentElement.lang;
 function syncAddress(){
  if(!online)return;
  const current=new URL(location.href);
